@@ -27,7 +27,6 @@ const modals = () => {
          modal.style.display = 'none';
          document.body.style.overflow = '';
       });
-      console.log(1);
    };
 
    function showMyModal(selector, time){
@@ -39,7 +38,7 @@ const modals = () => {
 
    bindModals('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
    bindModals('.phone_link', '.popup', '.popup .popup_close');
-   showMyModal('.popup', 3000);
+   // showMyModal('.popup', 3000);
 };
 
 export default modals;
