@@ -1,4 +1,4 @@
-const tabs = (parentSelector, tabsSelector, contentSelector, activeClass) => {
+const tabs = (parentSelector, tabsSelector, contentSelector, activeClass, display = 'block') => {
    console.log('tabs');
    const parent = document.querySelector(parentSelector),
          tabs = document.querySelectorAll(tabsSelector),
@@ -18,7 +18,7 @@ const tabs = (parentSelector, tabsSelector, contentSelector, activeClass) => {
 
    function showTabsAndContent(i = 0){
       tabs[i].classList.add(activeClass);
-      content[i].style.display = 'block';
+      content[i].style.display = display;
    }
    
    hideTabsAndContent();

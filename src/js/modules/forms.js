@@ -1,13 +1,10 @@
-const forms = () => {
-   const form = document.querySelectorAll('form'),
-         inputs = document.querySelectorAll('input'),
-         phoneInputs = document.querySelectorAll('input[name="user_phone"]');
+import checkNumInputs from "./checkNumInputs";
 
-   phoneInputs.forEach(item => {
-      item.addEventListener('input', ()=>{
-         item.value = item.value.replace(/\D/, '');
-      });
-   });
+const forms = (state) => {
+   const form = document.querySelectorAll('form'),
+         inputs = document.querySelectorAll('input');
+
+   checkNumInputs('input[name="user_phone"]');
 
    const massage = {
       loading: "Загрузка...",
@@ -41,6 +38,11 @@ const forms = () => {
          item.appendChild(statusMassage);
          
          const formData = new FormData(item);
+         if(item.getAttribute('data-calc') === "end"){
+            for(let key in state){
+               formData.append(key, state[key]);
+            }
+         }
          
          postData('./assets/server.php', formData)
             .then(res => {
@@ -52,7 +54,15 @@ const forms = () => {
                clearInputs();
                setTimeout(()=>{
                   statusMassage.remove();
+                  if(item.getAttribute("data-calc") === "end"){
+                     item.style.display = "none";
+                     document.querySelector('.popup_calc_end').style.display = "none";
+                     document.body.style.overflow = '';
+                  }
                }, 3000);
+               for(let key in state){
+                  delete state[key];
+               }
             });
       });
    });
